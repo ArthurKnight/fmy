@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.ProductionMapper">
+	<resultMap id="BaseResultMap" type="com.fmy.entity.Production">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="pro_name" property="proName" jdbcType="VARCHAR" />
+		<result column="flower_num" property="flowerNum" jdbcType="BIGINT" />
+		<result column="browse_num" property="browseNum" jdbcType="BIGINT" />
+		<result column="fk_author_id" property="fkAuthorId" jdbcType="VARCHAR" />
+		<result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+		<result column="create_timestamp" property="createTimestamp"
+			jdbcType="TIMESTAMP" />
+		<result column="last_change_timestamp" property="lastChangeTimestamp"
+			jdbcType="TIMESTAMP" />
+		<result column="picture_path" property="picturePath" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.fmy.entity.Production"
+		extends="BaseResultMap">
+		<result column="flower_user_ids" property="flowerUserIds"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, pro_name, flower_num, browse_num, fk_author_id, upload_time,
+		create_timestamp,
+		last_change_timestamp, picture_path
+	</sql>
+	<sql id="Blob_Column_List">
+		flower_user_ids
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from production
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from production
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.fmy.entity.Production">
+		insert into production (id, pro_name, flower_num,
+		browse_num, fk_author_id, upload_time,
+		create_timestamp, last_change_timestamp,
+		picture_path, flower_user_ids)
+		values (#{id,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR},
+		#{flowerNum,jdbcType=BIGINT},
+		#{browseNum,jdbcType=BIGINT}, #{fkAuthorId,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP},
+		#{createTimestamp,jdbcType=TIMESTAMP},
+		#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		#{picturePath,jdbcType=VARCHAR},
+		#{flowerUserIds,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.fmy.entity.Production">
+		insert into production
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="proName != null">
+				pro_name,
+			</if>
+			<if test="flowerNum != null">
+				flower_num,
+			</if>
+			<if test="browseNum != null">
+				browse_num,
+			</if>
+			<if test="fkAuthorId != null">
+				fk_author_id,
+			</if>
+			<if test="uploadTime != null">
+				upload_time,
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp,
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp,
+			</if>
+			<if test="picturePath != null">
+				picture_path,
+			</if>
+			<if test="flowerUserIds != null">
+				flower_user_ids,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="proName != null">
+				#{proName,jdbcType=VARCHAR},
+			</if>
+			<if test="flowerNum != null">
+				#{flowerNum,jdbcType=BIGINT},
+			</if>
+			<if test="browseNum != null">
+				#{browseNum,jdbcType=BIGINT},
+			</if>
+			<if test="fkAuthorId != null">
+				#{fkAuthorId,jdbcType=VARCHAR},
+			</if>
+			<if test="uploadTime != null">
+				#{uploadTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTimestamp != null">
+				#{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="picturePath != null">
+				#{picturePath,jdbcType=VARCHAR},
+			</if>
+			<if test="flowerUserIds != null">
+				#{flowerUserIds,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.Production">
+		update production
+		<set>
+			<if test="proName != null">
+				pro_name = #{proName,jdbcType=VARCHAR},
+			</if>
+			<if test="flowerNum != null">
+				flower_num = #{flowerNum,jdbcType=BIGINT},
+			</if>
+			<if test="browseNum != null">
+				browse_num = #{browseNum,jdbcType=BIGINT},
+			</if>
+			<if test="fkAuthorId != null">
+				fk_author_id = #{fkAuthorId,jdbcType=VARCHAR},
+			</if>
+			<if test="uploadTime != null">
+				upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="picturePath != null">
+				picture_path = #{picturePath,jdbcType=VARCHAR},
+			</if>
+			<if test="flowerUserIds != null">
+				flower_user_ids = #{flowerUserIds,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fmy.entity.Production">
+		update production
+		set pro_name = #{proName,jdbcType=VARCHAR},
+		flower_num = #{flowerNum,jdbcType=BIGINT},
+		browse_num = #{browseNum,jdbcType=BIGINT},
+		fk_author_id = #{fkAuthorId,jdbcType=VARCHAR},
+		upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+		create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		picture_path = #{picturePath,jdbcType=VARCHAR},
+		flower_user_ids = #{flowerUserIds,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.fmy.entity.Production">
+		update production
+		set pro_name = #{proName,jdbcType=VARCHAR},
+		flower_num = #{flowerNum,jdbcType=BIGINT},
+		browse_num = #{browseNum,jdbcType=BIGINT},
+		fk_author_id = #{fkAuthorId,jdbcType=VARCHAR},
+		upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+		create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		picture_path = #{picturePath,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 查找优秀作品 -->
+	<select id="findExcellentPros" parameterType="int" resultMap="ResultMapWithBLOBs">
+		select id , pro_name,flower_num ,fk_author_id ,picture_path
+		from production 
+		order by flower_num desc
+		limit #{start_num} ,10
+	</select>
+	
+	<select id="findProsByUserId" parameterType="map" resultMap="ResultMapWithBLOBs">
+		select id , pro_name , flower_num , fk_author_id ,picture_path
+		from production 
+		where fk_author_id = #{user_id}
+		order by flower_num desc
+		limit #{start_num} , 10
+	</select>
+	
+	<select id="findLatestPros" parameterType="int" resultMap="ResultMapWithBLOBs">
+		select id , pro_name , flower_num , fk_author_id , picture_path
+		from production
+		order by upload_time desc
+		limit #{start_num} , 10
+	</select>
+	
+	<!-- 返回List<Production>-->
+	<select id="getProsByUserId" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		SELECT 
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		FROM Production WHERE fk_author_id = #{id}
+	</select>
+	
+	<select id="countProNums" resultType="int" >
+		SELECT 
+		count(*)
+		FROM Production WHERE fk_author_id = #{id}
+	</select>
+	
+	<select id="findByUserIdPage" parameterType="map" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from production 
+		where fk_author_id = #{user_id}
+		and id != #{id}
+		order by flower_num desc
+		limit #{start_num} , 1 
+	</select>
+</mapper>

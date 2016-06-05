@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd"
+	default-lazy-init="true">
+
+	<!-- 加载配置资源文件 -->
+	<context:property-placeholder location="classpath:/resources.properties" />
+	
+	<!-- <bean id="duke"  class="com.springincation.springidol.Juggler">
+		<constructor-arg name="beanBags" value="15"></constructor-arg>
+	</bean> -->
+	<!-- <bean id="sonnet29"  class="com.springincation.springidol.Sonnet29">
+	</bean>
+	<bean id="poeticDuke"  class="com.springincation.springidol.PoeticJuggler">
+		<constructor-arg  value="15"></constructor-arg>
+		<constructor-arg  ref="sonnet29"></constructor-arg>
+	</bean>
+	<bean id="hank" class="com.springincation.springidol.OneManBand">
+		<property name="instruments">
+			<list>
+				<ref bean="guitar"/>
+			</list>
+		</property>
+	</bean> -->
+	
+	<!-- 项目名信息配置 -->
+	<!-- <import resource="appInfo.xml" /> -->
+	<!-- 权限管理配置 -->
+	
+	<!-- 启动注解 -->
+	<context:annotation-config />
+	<!-- 启动组件扫描 -->
+	<context:component-scan base-package="com.fmy" />
+	<context:component-scan base-package="com.fmy.controller" />
+	<context:component-scan base-package="com.fmy.dao" />
+	<context:component-scan base-package="com.fmy.service" />
+	<context:component-scan base-package="com.fmy.service.imp" />
+	<context:component-scan base-package="com.fmy.service.entity" />
+	<context:component-scan base-package="com.fmy.util"  />
+
+	<!-- 事务配置 -->
+	<import resource="config_transaction.xml" />  
+	<!-- 事务模式定义	 	-->
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" read-only="true" propagation="SUPPORTS"/>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="excute" propagation="REQUIRED" />
+			<tx:method name="import*" propagation="REQUIRES_NEW" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="change*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="send*" propagation="REQUIRED" />
+			<tx:method name="fileUpload*" propagation="REQUIRED" />
+			<tx:method name="upload*" propagation="REQUIRED" />
+			<tx:method name="set*" propagation="REQUIRED" />
+			<tx:method name="summary*" propagation="REQUIRED" />
+			<tx:method name="calc*" propagation="REQUIRED" /> 
+			<tx:method name="regist*" propagation="REQUIRED" />
+			<tx:method name="move*" propagation="REQUIRED" />
+			<tx:method name="swap*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			日志
+			<tx:method name="log*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice> -->
+
+	
+	<!-- 事务匹配逻辑 -->
+	<!-- <aop:config>
+		<aop:pointcut expression="execution(* com.fmy..*.service.*.*(..))" id="servicesOperation" />
+		<aop:advisor advice-ref="txAdvice" 	pointcut-ref="servicesOperation" />
+	</aop:config> -->
+	
+	<!-- Web层相关配置 -->
+	<import resource="config_mvc.xml" />
+
+
+	<!--引用外部服务暴露 -->
+	<!-- <import resource="exportedservice/*.xml" /> -->
+	<!-- 项目自定义配置 -->
+	<!-- <import resource="custom/**/*.xml" /> -->
+
+	<!--模块扩展配置 -->
+	<!-- <import resource="extend/**/*.xml" /> -->
+
+</beans>

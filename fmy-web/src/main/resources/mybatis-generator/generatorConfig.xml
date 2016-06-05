@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动包位置 -->
+    <classPathEntry location="C:\fpi_dev\maven\repo\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" /> 
+    <!-- <classPathEntry location="C:\oracle\product\10.2.0\db_1\jdbc\lib\ojdbc14.jar" />-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+        	 <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 数据库链接URL、用户名、密码 -->
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/fmydb" userId="root" password=""> 
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成实体类的包名和位置，这里配置将生成的实体类放在com.fmy.entity这个包下 -->
+        <javaModelGenerator targetPackage="com.fmy.entity" targetProject="C:\fpi_dev\workspace\fmy-web\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 生成的SQL映射文件包名和位置，这里配置将生成的SQL映射文件放在com.fmy.mapping这个包下 -->
+        <sqlMapGenerator targetPackage="com.fmy.mapping" targetProject="C:\fpi_dev\workspace\fmy-web\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置，这里配置将生成的dao类放在com.fmy.dao这个包下 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.fmy.dao" targetProject="C:\fpi_dev\workspace\fmy-web\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+        <!-- <table tableName="comment" domainObjectName="Comment" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="production" domainObjectName="Production" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 -->
+    	 <!--漫画阅读  -->
+    	 <table tableName="mhyd_bookmark" domainObjectName="MhydBookMark" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="mhyd_chapter" domainObjectName="MhydChapter" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="mhyd_chapterpay" domainObjectName="MhydChapterPay" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="mhyd_comics" domainObjectName="MhydComics" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="mhyd_comicstype" domainObjectName="MhydComicsType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="mhyd_comment" domainObjectName="MhydComment" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    	 <table tableName="mhyd_pic" domainObjectName="MhydPic" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+   		 <table tableName="mhyd_user" domainObjectName="MhydUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+    
+    </context>
+</generatorConfiguration>

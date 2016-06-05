@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.CommentMapper">
+	<resultMap id="BaseResultMap" type="com.fmy.entity.Comment">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
+		<result column="fk_pro_id" property="fkProId" jdbcType="VARCHAR" />
+		<result column="favour_num" property="favourNum" jdbcType="INTEGER" />
+		<result column="create_timestamp" property="createTimestamp"
+			jdbcType="TIMESTAMP" />
+		<result column="last_change_timestamp" property="lastChangeTimestamp"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.fmy.entity.CommentWithBLOBs"
+		extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+		<result column="favour_ids" property="favourIds" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_name, user_id, comment_time, fk_pro_id, favour_num,
+		create_timestamp, last_change_timestamp
+	</sql>
+	<sql id="Blob_Column_List">
+		content, favour_ids
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from comment
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from comment
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.fmy.entity.CommentWithBLOBs">
+		insert into comment (id, user_name, user_id,
+		comment_time, fk_pro_id, favour_num,
+		create_timestamp, last_change_timestamp,
+		content, favour_ids)
+		values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{commentTime,jdbcType=TIMESTAMP}, #{fkProId,jdbcType=VARCHAR}, #{favourNum,jdbcType=INTEGER},
+		#{createTimestamp,jdbcType=TIMESTAMP},
+		#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		#{content,jdbcType=LONGVARCHAR}, #{favourIds,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.fmy.entity.CommentWithBLOBs">
+		insert into comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="commentTime != null">
+				comment_time,
+			</if>
+			<if test="fkProId != null">
+				fk_pro_id,
+			</if>
+			<if test="favourNum != null">
+				favour_num,
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp,
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="favourIds != null">
+				favour_ids,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="commentTime != null">
+				#{commentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fkProId != null">
+				#{fkProId,jdbcType=VARCHAR},
+			</if>
+			<if test="favourNum != null">
+				#{favourNum,jdbcType=INTEGER},
+			</if>
+			<if test="createTimestamp != null">
+				#{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="favourIds != null">
+				#{favourIds,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.CommentWithBLOBs">
+		update comment
+		<set>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="commentTime != null">
+				comment_time = #{commentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fkProId != null">
+				fk_pro_id = #{fkProId,jdbcType=VARCHAR},
+			</if>
+			<if test="favourNum != null">
+				favour_num = #{favourNum,jdbcType=INTEGER},
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="favourIds != null">
+				favour_ids = #{favourIds,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fmy.entity.CommentWithBLOBs">
+		update comment
+		set user_name = #{userName,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=VARCHAR},
+		comment_time = #{commentTime,jdbcType=TIMESTAMP},
+		fk_pro_id = #{fkProId,jdbcType=VARCHAR},
+		favour_num = #{favourNum,jdbcType=INTEGER},
+		create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		content = #{content,jdbcType=LONGVARCHAR},
+		favour_ids = #{favourIds,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.fmy.entity.Comment">
+		update comment
+		set user_name = #{userName,jdbcType=VARCHAR},
+		user_id = #{userId,jdbcType=VARCHAR},
+		comment_time = #{commentTime,jdbcType=TIMESTAMP},
+		fk_pro_id = #{fkProId,jdbcType=VARCHAR},
+		favour_num = #{favourNum,jdbcType=INTEGER},
+		create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="getProductVoListByProId" resultType="com.fmy.vo.ProductVo"
+		parameterType="java.lang.String">
+		select
+		pro.id as proId,
+		pro.pro_name as proName,
+		pro.picture_path as picturePath,
+		com.id as commentId,
+		com.user_name as userName,
+		com.comment_time as
+		commentTime,
+		com.favour_num as favourNum
+		from production pro left join
+		`comment` com on pro.id=com.fk_pro_id
+		where pro.id=#{proId}
+	</select>
+
+	<select id="getCommentListByProId" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from comment
+		where fk_pro_id = #{proId,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteByProIds" parameterType="java.lang.String">
+		delete from comment
+		where fk_pro_id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="getAllComments" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from comment
+		order by favour_num desc
+	</select>
+	
+	<select id="getProCommentsByPage" parameterType="map" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from comment
+		where fk_pro_id = #{id}
+		order by favour_num desc
+		limit #{start_num} , #{commentPageSize}
+		
+	</select>
+</mapper>

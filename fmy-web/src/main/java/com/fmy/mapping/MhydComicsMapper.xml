@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.MhydComicsMapper" >
+  <resultMap id="BaseResultMap" type="com.fmy.entity.MhydComics" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="tag_ids" property="tagIds" jdbcType="VARCHAR" />
+    <result column="home_pic" property="homePic" jdbcType="VARCHAR" />
+    <result column="oneword_desc" property="onewordDesc" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="BIGINT" />
+    <result column="mark_num" property="markNum" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="launch_date" property="launchDate" jdbcType="TIMESTAMP" />
+    <result column="propFlag" property="propflag" jdbcType="TINYINT" />
+    <result column="bookStateFlag" property="bookstateflag" jdbcType="TINYINT" />
+    <result column="pays" property="pays" jdbcType="BIGINT" />
+    <result column="create_timestamp" property="createTimestamp" jdbcType="TIMESTAMP" />
+    <result column="last_change_timestamp" property="lastChangeTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fmy.entity.MhydComics" extends="BaseResultMap" >
+    <result column="plot_desc" property="plotDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, author, tag_ids, home_pic, oneword_desc, like_num, mark_num, state, launch_date, 
+    propFlag, bookStateFlag, pays, create_timestamp, last_change_timestamp
+  </sql>
+  <sql id="Blob_Column_List" >
+    plot_Desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mhyd_comics
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mhyd_comics
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fmy.entity.MhydComics" >
+    insert into mhyd_comics (id, name, author, 
+      tag_ids, home_pic, oneword_desc, 
+      like_num, mark_num, state, 
+      launch_date, propFlag, bookStateFlag, 
+      pays, create_timestamp, last_change_timestamp, 
+      plot_Desc)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{tagIds,jdbcType=VARCHAR}, #{homePic,jdbcType=VARCHAR}, #{onewordDesc,jdbcType=VARCHAR}, 
+      #{likeNum,jdbcType=BIGINT}, #{markNum,jdbcType=BIGINT}, #{state,jdbcType=VARCHAR}, 
+      #{launchDate,jdbcType=TIMESTAMP}, #{propflag,jdbcType=TINYINT}, #{bookstateflag,jdbcType=TINYINT}, 
+      #{pays,jdbcType=BIGINT}, #{createTimestamp,jdbcType=TIMESTAMP}, #{lastChangeTimestamp,jdbcType=TIMESTAMP}, 
+      #{plotDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fmy.entity.MhydComics" >
+    insert into mhyd_comics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="tagIds != null" >
+        tag_ids,
+      </if>
+      <if test="homePic != null" >
+        home_pic,
+      </if>
+      <if test="onewordDesc != null" >
+        oneword_desc,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="markNum != null" >
+        mark_num,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="launchDate != null" >
+        launch_date,
+      </if>
+      <if test="propflag != null" >
+        propFlag,
+      </if>
+      <if test="bookstateflag != null" >
+        bookStateFlag,
+      </if>
+      <if test="pays != null" >
+        pays,
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp,
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp,
+      </if>
+      <if test="plotDesc != null" >
+        plot_Desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="tagIds != null" >
+        #{tagIds,jdbcType=VARCHAR},
+      </if>
+      <if test="homePic != null" >
+        #{homePic,jdbcType=VARCHAR},
+      </if>
+      <if test="onewordDesc != null" >
+        #{onewordDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=BIGINT},
+      </if>
+      <if test="markNum != null" >
+        #{markNum,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="launchDate != null" >
+        #{launchDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propflag != null" >
+        #{propflag,jdbcType=TINYINT},
+      </if>
+      <if test="bookstateflag != null" >
+        #{bookstateflag,jdbcType=TINYINT},
+      </if>
+      <if test="pays != null" >
+        #{pays,jdbcType=BIGINT},
+      </if>
+      <if test="createTimestamp != null" >
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plotDesc != null" >
+        #{plotDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.MhydComics" >
+    update mhyd_comics
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="tagIds != null" >
+        tag_ids = #{tagIds,jdbcType=VARCHAR},
+      </if>
+      <if test="homePic != null" >
+        home_pic = #{homePic,jdbcType=VARCHAR},
+      </if>
+      <if test="onewordDesc != null" >
+        oneword_desc = #{onewordDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=BIGINT},
+      </if>
+      <if test="markNum != null" >
+        mark_num = #{markNum,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="launchDate != null" >
+        launch_date = #{launchDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="propflag != null" >
+        propFlag = #{propflag,jdbcType=TINYINT},
+      </if>
+      <if test="bookstateflag != null" >
+        bookStateFlag = #{bookstateflag,jdbcType=TINYINT},
+      </if>
+      <if test="pays != null" >
+        pays = #{pays,jdbcType=BIGINT},
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plotDesc != null" >
+        plot_Desc = #{plotDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fmy.entity.MhydComics" >
+    update mhyd_comics
+    set name = #{name,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      tag_ids = #{tagIds,jdbcType=VARCHAR},
+      home_pic = #{homePic,jdbcType=VARCHAR},
+      oneword_desc = #{onewordDesc,jdbcType=VARCHAR},
+      like_num = #{likeNum,jdbcType=BIGINT},
+      mark_num = #{markNum,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      launch_date = #{launchDate,jdbcType=TIMESTAMP},
+      propFlag = #{propflag,jdbcType=TINYINT},
+      bookStateFlag = #{bookstateflag,jdbcType=TINYINT},
+      pays = #{pays,jdbcType=BIGINT},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      plot_Desc = #{plotDesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fmy.entity.MhydComics" >
+    update mhyd_comics
+    set name = #{name,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      tag_ids = #{tagIds,jdbcType=VARCHAR},
+      home_pic = #{homePic,jdbcType=VARCHAR},
+      oneword_desc = #{onewordDesc,jdbcType=VARCHAR},
+      like_num = #{likeNum,jdbcType=BIGINT},
+      mark_num = #{markNum,jdbcType=BIGINT},
+      state = #{state,jdbcType=VARCHAR},
+      launch_date = #{launchDate,jdbcType=TIMESTAMP},
+      propFlag = #{propflag,jdbcType=TINYINT},
+      bookStateFlag = #{bookstateflag,jdbcType=TINYINT},
+      pays = #{pays,jdbcType=BIGINT},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getComicsListByIds" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mhyd_comics
+    where id in 
+    <foreach item="item" index="index" collection="list" open="("
+		separator="," close=")">
+		#{item}
+	</foreach>
+  </select>
+</mapper>

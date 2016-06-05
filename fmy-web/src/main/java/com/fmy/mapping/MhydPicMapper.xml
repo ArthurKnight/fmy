@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.MhydPicMapper" >
+  <resultMap id="BaseResultMap" type="com.fmy.entity.MhydPic" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fk_chapter_id" property="fkChapterId" jdbcType="VARCHAR" />
+    <result column="pic_path" property="picPath" jdbcType="VARCHAR" />
+    <result column="pic_order" property="picOrder" jdbcType="INTEGER" />
+    <result column="create_timestamp" property="createTimestamp" jdbcType="TIMESTAMP" />
+    <result column="last_change_timestamp" property="lastChangeTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_chapter_id, pic_path, pic_order, create_timestamp, last_change_timestamp
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mhyd_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mhyd_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fmy.entity.MhydPic" >
+    insert into mhyd_pic (id, fk_chapter_id, pic_path, 
+      pic_order, create_timestamp, last_change_timestamp
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fkChapterId,jdbcType=VARCHAR}, #{picPath,jdbcType=VARCHAR}, 
+      #{picOrder,jdbcType=INTEGER}, #{createTimestamp,jdbcType=TIMESTAMP}, #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fmy.entity.MhydPic" >
+    insert into mhyd_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkChapterId != null" >
+        fk_chapter_id,
+      </if>
+      <if test="picPath != null" >
+        pic_path,
+      </if>
+      <if test="picOrder != null" >
+        pic_order,
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp,
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fkChapterId != null" >
+        #{fkChapterId,jdbcType=VARCHAR},
+      </if>
+      <if test="picPath != null" >
+        #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="picOrder != null" >
+        #{picOrder,jdbcType=INTEGER},
+      </if>
+      <if test="createTimestamp != null" >
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.MhydPic" >
+    update mhyd_pic
+    <set >
+      <if test="fkChapterId != null" >
+        fk_chapter_id = #{fkChapterId,jdbcType=VARCHAR},
+      </if>
+      <if test="picPath != null" >
+        pic_path = #{picPath,jdbcType=VARCHAR},
+      </if>
+      <if test="picOrder != null" >
+        pic_order = #{picOrder,jdbcType=INTEGER},
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fmy.entity.MhydPic" >
+    update mhyd_pic
+    set fk_chapter_id = #{fkChapterId,jdbcType=VARCHAR},
+      pic_path = #{picPath,jdbcType=VARCHAR},
+      pic_order = #{picOrder,jdbcType=INTEGER},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

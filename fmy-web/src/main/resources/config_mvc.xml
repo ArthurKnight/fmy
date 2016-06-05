@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd" default-lazy-init="true">
+	
+	<!-- 启用SpringMVC注解 -->
+	<mvc:annotation-driven />
+	
+	<!-- 启用拦截器 -->
+	<!-- <mvc:interceptors>   -->
+		<!-- 操作日志插件 
+		<mvc:interceptor>  
+			<mvc:mapping path="/**"/>  
+			<bean class="com.fpi.common.logging.interceptors.ResourceLoggingInterceptor" />  
+		</mvc:interceptor>
+		-->
+		<!-- 用户信息注入插件 -->
+		<!-- <mvc:interceptor>  
+			<mvc:mapping path="/**"/>  
+			<bean class="com.fpi.epoch.web.framework.intercepter.SessionContextInterceptor" />  
+		</mvc:interceptor>   -->
+		<!-- 菜单定位插件 --> 
+		<!-- <mvc:interceptor>  
+			<mvc:mapping path="/**"/>  
+			<bean class="com.fpi.epoch.web.framework.intercepter.MenuResourceInterceptor" />  
+		</mvc:interceptor>    -->
+	<!-- </mvc:interceptors> -->
+	
+	<mvc:resources mapping="/images/**" location="/images/" />  
+	<mvc:resources mapping="/js/**" location="/js/" />  
+	<mvc:resources mapping="/css/**" location="/css/" />  
+	<mvc:resources mapping="/html/**" location="/html/" />  
+	<mvc:resources location="/" mapping="/**/*.xml"/>
+	
+	<!-- 为文件上传而改写的配置 -->
+	 <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+		<property name="supportedMediaTypes">  
+			<util:list>  
+				<bean class="org.springframework.http.MediaType">  
+					<constructor-arg index="0" value="application" />  
+					<constructor-arg index="1" value="json" />
+					<constructor-arg index="2" value="UTF-8" />  
+				</bean>  
+				<bean class="org.springframework.http.MediaType">  
+					<constructor-arg index="0" value="text" />  
+					<constructor-arg index="1" value="*" />  
+					<constructor-arg index="2" value="UTF-8" />  
+				</bean>  
+			</util:list>  
+		</property>
+	</bean> 
+	
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">  
+		<property name="supportedMediaTypes">  
+			<util:list>  
+				<bean class="org.springframework.http.MediaType">  
+					<constructor-arg index="0" value="application" />  
+					<constructor-arg index="1" value="xml" />  
+					<constructor-arg index="2" value="UTF-8" />  
+				</bean>  
+				
+				<bean class="org.springframework.http.MediaType">  
+					<constructor-arg index="0" value="text" />  
+					<constructor-arg index="1" value="*" />  
+					<constructor-arg index="2" value="UTF-8" />  
+				</bean>  
+				
+			</util:list>  
+		</property>  
+	</bean> 
+	
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+		<property name="webBindingInitializer">
+			<bean class="com.fpi.epoch.common.web.converter.WebBindingInitializerImpl"/>
+		</property>
+	</bean> -->
+	
+
+	
+	<!-- JSP文件路径映射-->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="attributes" ref="systemProperties"></property>
+	</bean>
+	
+	<!-- 文件上传控制 -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="200000000000"></property>
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean> -->
+	
+	<!-- 菜单跳转配置-->
+	<!-- <bean class="com.fpi.epoch.web.framework.menu.CasAwareMenuUrlMappingImpl"/>  -->
+	<!-- <bean class="com.fpi.prj.changxing.pms.extend.CasAwareMenuUrlMappingImpl" />-->	
+
+</beans>
