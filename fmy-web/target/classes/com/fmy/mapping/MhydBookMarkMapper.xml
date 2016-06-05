@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.MhydBookMarkMapper">
+	<resultMap id="BaseResultMap" type="com.fmy.entity.MhydBookMark">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="fk_user_id" property="fkUserId" jdbcType="VARCHAR" />
+		<result column="fk_comics_id" property="fkComicsId" jdbcType="VARCHAR" />
+		<result column="fk_read_chapter_id" property="fkReadChapterId"
+			jdbcType="VARCHAR" />
+		<result column="markFlag" property="markflag" jdbcType="TINYINT" />
+		<result column="create_timestamp" property="createTimestamp"
+			jdbcType="TIMESTAMP" />
+		<result column="last_change_timestamp" property="lastChangeTimestamp"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, fk_user_id, fk_comics_id, fk_read_chapter_id, markFlag,
+		create_timestamp, last_change_timestamp
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from mhyd_bookmark
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from mhyd_bookmark
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.fmy.entity.MhydBookMark">
+		insert into mhyd_bookmark (id, fk_user_id, fk_comics_id,
+		fk_read_chapter_id, markFlag, create_timestamp,
+		last_change_timestamp)
+		values (#{id,jdbcType=VARCHAR}, #{fkUserId,jdbcType=VARCHAR},
+		#{fkComicsId,jdbcType=VARCHAR},
+		#{fkReadChapterId,jdbcType=VARCHAR}, #{markflag,jdbcType=TINYINT}, #{createTimestamp,jdbcType=TIMESTAMP},
+		#{lastChangeTimestamp,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.fmy.entity.MhydBookMark">
+		insert into mhyd_bookmark
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="fkUserId != null">
+				fk_user_id,
+			</if>
+			<if test="fkComicsId != null">
+				fk_comics_id,
+			</if>
+			<if test="fkReadChapterId != null">
+				fk_read_chapter_id,
+			</if>
+			<if test="markflag != null">
+				markFlag,
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp,
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="fkUserId != null">
+				#{fkUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="fkComicsId != null">
+				#{fkComicsId,jdbcType=VARCHAR},
+			</if>
+			<if test="fkReadChapterId != null">
+				#{fkReadChapterId,jdbcType=VARCHAR},
+			</if>
+			<if test="markflag != null">
+				#{markflag,jdbcType=TINYINT},
+			</if>
+			<if test="createTimestamp != null">
+				#{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.MhydBookMark">
+		update mhyd_bookmark
+		<set>
+			<if test="fkUserId != null">
+				fk_user_id = #{fkUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="fkComicsId != null">
+				fk_comics_id = #{fkComicsId,jdbcType=VARCHAR},
+			</if>
+			<if test="fkReadChapterId != null">
+				fk_read_chapter_id = #{fkReadChapterId,jdbcType=VARCHAR},
+			</if>
+			<if test="markflag != null">
+				markFlag = #{markflag,jdbcType=TINYINT},
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.fmy.entity.MhydBookMark">
+		update mhyd_bookmark
+		set fk_user_id = #{fkUserId,jdbcType=VARCHAR},
+		fk_comics_id = #{fkComicsId,jdbcType=VARCHAR},
+		fk_read_chapter_id = #{fkReadChapterId,jdbcType=VARCHAR},
+		markFlag = #{markflag,jdbcType=TINYINT},
+		create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="getRecentBooksByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from mhyd_bookmark where fk_user_id=#{id}
+		order by last_change_timestamp desc
+		limit 0,5
+	</select>
+	<select id="getMarkBooksByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from mhyd_bookmark where fk_user_id=#{id,jdbcType=VARCHAR}
+		and markFlag=1
+		order by last_change_timestamp desc
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+</mapper>

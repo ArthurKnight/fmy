@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.MhydChapterPayMapper" >
+  <resultMap id="BaseResultMap" type="com.fmy.entity.MhydChapterPay" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fk_chapter_id" property="fkChapterId" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="TINYINT" />
+    <result column="read_pay" property="readPay" jdbcType="VARCHAR" />
+    <result column="read_card" property="readCard" jdbcType="VARCHAR" />
+    <result column="create_timestamp" property="createTimestamp" jdbcType="TIMESTAMP" />
+    <result column="last_change_timestamp" property="lastChangeTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_chapter_id, pay_type, read_pay, read_card, create_timestamp, last_change_timestamp
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mhyd_chapterpay
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mhyd_chapterpay
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fmy.entity.MhydChapterPay" >
+    insert into mhyd_chapterpay (id, fk_chapter_id, pay_type, 
+      read_pay, read_card, create_timestamp, 
+      last_change_timestamp)
+    values (#{id,jdbcType=VARCHAR}, #{fkChapterId,jdbcType=VARCHAR}, #{payType,jdbcType=TINYINT}, 
+      #{readPay,jdbcType=VARCHAR}, #{readCard,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=TIMESTAMP}, 
+      #{lastChangeTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fmy.entity.MhydChapterPay" >
+    insert into mhyd_chapterpay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkChapterId != null" >
+        fk_chapter_id,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="readPay != null" >
+        read_pay,
+      </if>
+      <if test="readCard != null" >
+        read_card,
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp,
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fkChapterId != null" >
+        #{fkChapterId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="readPay != null" >
+        #{readPay,jdbcType=VARCHAR},
+      </if>
+      <if test="readCard != null" >
+        #{readCard,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null" >
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.MhydChapterPay" >
+    update mhyd_chapterpay
+    <set >
+      <if test="fkChapterId != null" >
+        fk_chapter_id = #{fkChapterId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=TINYINT},
+      </if>
+      <if test="readPay != null" >
+        read_pay = #{readPay,jdbcType=VARCHAR},
+      </if>
+      <if test="readCard != null" >
+        read_card = #{readCard,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fmy.entity.MhydChapterPay" >
+    update mhyd_chapterpay
+    set fk_chapter_id = #{fkChapterId,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=TINYINT},
+      read_pay = #{readPay,jdbcType=VARCHAR},
+      read_card = #{readCard,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

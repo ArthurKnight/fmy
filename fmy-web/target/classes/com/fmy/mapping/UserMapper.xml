@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.fmy.entity.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="draw_rank" property="drawRank" jdbcType="INTEGER" />
+    <result column="create_timestamp" property="createTimestamp" jdbcType="TIMESTAMP" />
+    <result column="last_change_timestamp" property="lastChangeTimestamp" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fmy.entity.User" extends="BaseResultMap" >
+    <result column="frend_ids" property="frendIds" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, draw_rank, create_timestamp, last_change_timestamp
+  </sql>
+  <sql id="Blob_Column_List" >
+    frend_ids
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fmy.entity.User" >
+    insert into user (id, name, draw_rank, 
+      create_timestamp, last_change_timestamp, 
+      frend_ids)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{drawRank,jdbcType=INTEGER}, 
+      #{createTimestamp,jdbcType=TIMESTAMP}, #{lastChangeTimestamp,jdbcType=TIMESTAMP}, 
+      #{frendIds,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fmy.entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="drawRank != null" >
+        draw_rank,
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp,
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp,
+      </if>
+      <if test="frendIds != null" >
+        frend_ids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="drawRank != null" >
+        #{drawRank,jdbcType=INTEGER},
+      </if>
+      <if test="createTimestamp != null" >
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frendIds != null" >
+        #{frendIds,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="drawRank != null" >
+        draw_rank = #{drawRank,jdbcType=INTEGER},
+      </if>
+      <if test="createTimestamp != null" >
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastChangeTimestamp != null" >
+        last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frendIds != null" >
+        frend_ids = #{frendIds,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fmy.entity.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      draw_rank = #{drawRank,jdbcType=INTEGER},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP},
+      frend_ids = #{frendIds,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fmy.entity.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      draw_rank = #{drawRank,jdbcType=INTEGER},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      last_change_timestamp = #{lastChangeTimestamp,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

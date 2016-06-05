@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fmy.dao.MhydChapterMapper">
+	<resultMap id="BaseResultMap" type="com.fmy.entity.MhydChapter">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="fk_comics_id" property="fkComicsId" jdbcType="VARCHAR" />
+		<result column="chapter_name" property="chapterName" jdbcType="VARCHAR" />
+		<result column="chapter_order" property="chapterOrder"
+			jdbcType="INTEGER" />
+		<result column="create_timestamp" property="createTimestamp"
+			jdbcType="TIMESTAMP" />
+		<result column="last_change_timestamp" property="lastChangeTimestamp"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.fmy.entity.MhydChapter"
+		extends="BaseResultMap">
+		<result column="content_ids" property="contentIds" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, fk_comics_id, chapter_name, chapter_order,
+		create_timestamp,
+		last_change_timestamp
+	</sql>
+	<sql id="Blob_Column_List">
+		content_ids
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from mhyd_chapter
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		mhyd_chapter
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.fmy.entity.MhydChapter">
+		insert into mhyd_chapter (id,
+		fk_comics_id, chapter_name,
+		chapter_order, create_timestamp,
+		last_change_timestamp,
+		content_ids)
+		values (#{id,jdbcType=VARCHAR},
+		#{fkComicsId,jdbcType=VARCHAR},
+		#{chapterName,jdbcType=VARCHAR},
+		#{chapterOrder,jdbcType=INTEGER},
+		#{createTimestamp,jdbcType=TIMESTAMP},
+		#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		#{contentIds,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.fmy.entity.MhydChapter">
+		insert into mhyd_chapter
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="fkComicsId != null">
+				fk_comics_id,
+			</if>
+			<if test="chapterName != null">
+				chapter_name,
+			</if>
+			<if test="chapterOrder != null">
+				chapter_order,
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp,
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp,
+			</if>
+			<if test="contentIds != null">
+				content_ids,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="fkComicsId != null">
+				#{fkComicsId,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterName != null">
+				#{chapterName,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterOrder != null">
+				#{chapterOrder,jdbcType=INTEGER},
+			</if>
+			<if test="createTimestamp != null">
+				#{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="contentIds != null">
+				#{contentIds,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.fmy.entity.MhydChapter">
+		update mhyd_chapter
+		<set>
+			<if test="fkComicsId != null">
+				fk_comics_id = #{fkComicsId,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterName != null">
+				chapter_name = #{chapterName,jdbcType=VARCHAR},
+			</if>
+			<if test="chapterOrder != null">
+				chapter_order = #{chapterOrder,jdbcType=INTEGER},
+			</if>
+			<if test="createTimestamp != null">
+				create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastChangeTimestamp != null">
+				last_change_timestamp =
+				#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+			</if>
+			<if test="contentIds != null">
+				content_ids = #{contentIds,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fmy.entity.MhydChapter">
+		update
+		mhyd_chapter
+		set fk_comics_id = #{fkComicsId,jdbcType=VARCHAR},
+		chapter_name = #{chapterName,jdbcType=VARCHAR},
+		chapter_order =
+		#{chapterOrder,jdbcType=INTEGER},
+		create_timestamp =
+		#{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp =
+		#{lastChangeTimestamp,jdbcType=TIMESTAMP},
+		content_ids =
+		#{contentIds,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.fmy.entity.MhydChapter">
+		update
+		mhyd_chapter
+		set fk_comics_id = #{fkComicsId,jdbcType=VARCHAR},
+		chapter_name = #{chapterName,jdbcType=VARCHAR},
+		chapter_order =
+		#{chapterOrder,jdbcType=INTEGER},
+		create_timestamp =
+		#{createTimestamp,jdbcType=TIMESTAMP},
+		last_change_timestamp =
+		#{lastChangeTimestamp,jdbcType=TIMESTAMP}
+		where id =
+		#{id,jdbcType=VARCHAR}
+	</update>
+	<select id="getUpdateChapterByIds" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from
+		(select * from mhyd_chapter order by chapter_order desc) c
+		where
+		fk_comics_id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		group by fk_comics_id
+	</select>
+	<select id="getRecentChapterByIds" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from mhyd_chapter
+		where id in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+</mapper>
